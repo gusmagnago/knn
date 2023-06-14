@@ -25,7 +25,7 @@ npm start
 
 ## To Visit App:
 
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [localhost:3000](http://localhost:3000) to view it in the browser.
 
 
 ## Project structure
@@ -53,7 +53,7 @@ Goal: The goal of this project is to demonstrate:
 - Redux-Thunk
 - Typescript
 - Axios
-- CSS template from [https://www.creative-tim.com/](Creative-tim)
+- CSS template from [Creative-tim](https://www.creative-tim.com/)
 
 #### Thank you!
 
