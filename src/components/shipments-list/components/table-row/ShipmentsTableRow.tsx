@@ -25,12 +25,10 @@ const ShipmentsTableRow = ({
         const renderCellChild = () => {
           if (!isThead) {
             if (isEdit) {
-              return <ActionButton handleClick={() => console.log('a')} />;
+              return <ActionButton shipId={item?.trackingNo} />;
             }
             if (isDelete) {
-              return (
-                <ActionButton handleClick={() => console.log('a')} isDelete />
-              );
+              return <ActionButton isDelete shipId={item?.trackingNo} />;
             }
           }
           return (
