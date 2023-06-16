@@ -25,5 +25,5 @@ export interface PaginationProps {
 
 export interface ActionButtonProps {
     isDelete?: boolean;
-    handleClick: () => void;
+    shipId: string | undefined;
 }
