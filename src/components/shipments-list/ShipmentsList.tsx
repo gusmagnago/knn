@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../utils/store';
 import {
-  fetchShipmentsData,
+  selectError,
   selectLoading,
   selectShipments,
 } from '../../utils/reducers';
@@ -11,6 +11,9 @@ import { Card } from '@material-tailwind/react';
 
 import ShipmentsTable from './components/table/ShipmentsTable';
 import Loader from '../loader/Loader';
+import { fetchShipmentsData } from '../../utils/api/fetchShipmentsData';
+import ErrorPage from '../error/Error';
+import { AxiosError } from 'axios';
 
 export const column = [
   { name: 'orderNo', heading: 'orderno' },
@@ -28,7 +31,7 @@ const ShipmentsList = () => {
 
   const shipments = useSelector(selectShipments);
   const loading = useSelector(selectLoading);
-  // const error = useSelector(selectError);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchShipmentsData());
@@ -36,6 +39,10 @@ const ShipmentsList = () => {
 
   if (loading) {
     return <Loader />;
+  }
+
+  if (error) {
+    return <ErrorPage error={error as AxiosError} />;
   }
 
   return (

@@ -48,7 +48,7 @@ const ShipmentsTableRow = ({
         return (
           <Cell
             key={`${columnItem.name}-${index}`}
-            className={isThead ? `${className}` : 'py-5 px-2'}
+            className={isThead ? `${className}` : 'py-5 px-2 max-w-[250px]'}
           >
             {renderCellChild()}
           </Cell>
