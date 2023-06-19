@@ -4,17 +4,22 @@ interface CardItemProps {
   label: string;
   value: string;
   isEdit: boolean;
+  name: string;
+  onChange: (e: any) => void;
 }
 
-const CardItem = ({ label, value, isEdit }: CardItemProps) => {
+const CardItem = ({ label, value, isEdit, onChange }: CardItemProps) => {
   return (
     <div className='m-2'>
       {isEdit ? (
         <Input
-          variant='outlined'
-          label={label}
-          defaultValue={value}
           className='font-base'
+          defaultValue={value}
+          disabled={label !== 'customer' && label !== 'consignee'}
+          label={label}
+          onChange={onChange}
+          name={value}
+          variant='outlined'
         />
       ) : (
         <div>

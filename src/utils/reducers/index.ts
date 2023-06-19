@@ -1,39 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { State } from '../types';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { Shipments, State } from '../types';
 import { RootState } from '../store';
-import axios, { AxiosError } from 'axios';
+import { fetchShipmentsData } from '../api/fetchShipmentsData';
+import { updateShipmentData } from '../api/updateShipmentData';
+
 
 const initialState: State = {
     shipments: [],
     loading: false,
     error: null,
 };
-
-export const fetchShipmentsData = createAsyncThunk(
-    'shipments/fetchData',
-    async () => {
-        try {
-            const response = await axios.get(
-                'https://my.api.mockaroo.com/shipments.json?key=5e0b62d0'
-            );
-            return response.data;
-        } catch (error) {
-            const axiosError = error as AxiosError;
-            if (
-                axiosError.response
-            ) {
-                try {
-                    const localData = await axios.get('/shipments.json');
-                    return localData.data;
-                } catch (error) {
-                    return axiosError.message;
-                }
-            }
-            return axiosError.message;
-        }
-    }
-);
 
 const dataSlice = createSlice({
     name: 'shipments',
@@ -52,7 +28,25 @@ const dataSlice = createSlice({
             .addCase(fetchShipmentsData.rejected, (state: State, action) => {
                 state.loading = false;
                 state.error = action.error.message ?? 'Failed to fetch shipments data';
-            });
+            }).addCase(updateShipmentData.pending, (state: State) => {
+                state.loading = true;
+                state.error = null;
+            }).addCase(updateShipmentData.fulfilled, (state: State, action) => {
+                state.loading = false;
+                const updatedShipment = action.payload as Shipments;
+                const updatedIndex = state.shipments.findIndex(
+                    (shipment) => shipment.trackingNo === updatedShipment.trackingNo
+                );
+
+                if (updatedIndex !== -1) {
+                    state.shipments[updatedIndex] = updatedShipment;
+                }
+                state.shipments.push(updatedShipment);
+
+            }).addCase(updateShipmentData.rejected, (state: State, action) => {
+                state.loading = false;
+                state.error = action.error.message ?? 'Failed to upload shipments data';
+            })
     },
 });
 
