@@ -42,7 +42,6 @@ const dataSlice = createSlice({
                     state.shipments[updatedIndex] = updatedShipment;
                 }
                 state.shipments.push(updatedShipment);
-
             }).addCase(updateShipmentData.rejected, (state: State, action) => {
                 state.loading = false;
                 state.error = action.error.message ?? 'Failed to upload shipments data';

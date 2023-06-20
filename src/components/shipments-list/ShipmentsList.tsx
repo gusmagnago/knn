@@ -1,11 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../utils/store';
-import {
-  selectError,
-  selectLoading,
-  selectShipments,
-} from '../../utils/reducers';
+import { selectLoading, selectShipments } from '../../utils/reducers';
 
 import { Card } from '@material-tailwind/react';
 
@@ -31,18 +27,21 @@ const ShipmentsList = () => {
 
   const shipments = useSelector(selectShipments);
   const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
 
   useEffect(() => {
-    dispatch(fetchShipmentsData());
+    const fetchData = async () => {
+      try {
+        await dispatch(fetchShipmentsData()).unwrap();
+      } catch (error) {
+        <ErrorPage error={error as AxiosError} />;
+      }
+    };
+
+    fetchData();
   }, [dispatch]);
 
   if (loading) {
     return <Loader />;
-  }
-
-  if (error) {
-    return <ErrorPage error={error as AxiosError} />;
   }
 
   return (
