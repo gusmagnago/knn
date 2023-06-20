@@ -33,7 +33,7 @@ const ShipmentsList = () => {
       try {
         await dispatch(fetchShipmentsData()).unwrap();
       } catch (error) {
-        <ErrorPage error={error as AxiosError} />;
+        return <ErrorPage error={error as AxiosError} />;
       }
     };
 
