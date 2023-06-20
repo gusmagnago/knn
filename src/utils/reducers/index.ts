@@ -14,7 +14,12 @@ const initialState: State = {
 const dataSlice = createSlice({
     name: 'shipments',
     initialState,
-    reducers: {},
+    reducers: {
+        deleteShipment: (state: State, action) => {
+            const trackingId = action.payload;
+            state.shipments = state.shipments.filter((shipment) => shipment.trackingNo !== trackingId)
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchShipmentsData.pending, (state: State) => {
@@ -52,7 +57,10 @@ const dataSlice = createSlice({
     },
 });
 
+export const { deleteShipment } = dataSlice.actions;
+
 export default dataSlice.reducer;
+
 export const selectShipments = (state: RootState) => state.shipments.shipments;
 export const selectUpdatedShipments = (state: RootState) =>
     state.shipments.updatedShipments;

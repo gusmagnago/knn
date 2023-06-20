@@ -5,6 +5,8 @@ import { Shipments } from '../../../../utils/types';
 import { ShipmentsTableRowProps } from '../index.types';
 
 import ActionButton from '../action-button/ActionButton';
+import { useAppDispatch } from '../../../../utils/store';
+import { deleteShipment } from '../../../../utils/reducers';
 
 const ShipmentsTableRow = ({
   item,
@@ -12,6 +14,8 @@ const ShipmentsTableRow = ({
   className,
   parent,
 }: ShipmentsTableRowProps) => {
+  const dispatch = useAppDispatch();
+
   const isThead = parent === 'thead';
 
   return (
@@ -29,7 +33,13 @@ const ShipmentsTableRow = ({
             return <ActionButton shipId={item?.trackingNo} />;
           }
           if (isDelete) {
-            return <ActionButton isDelete shipId={item?.trackingNo} />;
+            return (
+              <ActionButton
+                isDelete
+                shipId={item?.trackingNo}
+                onDelete={() => dispatch(deleteShipment(item?.trackingNo))}
+              />
+            );
           }
           return (
             <Typography

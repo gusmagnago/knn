@@ -1,11 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../utils/store';
-import {
-  selectLoading,
-  selectShipments,
-  updatedShipmentList,
-} from '../../utils/reducers';
+import { selectLoading, updatedShipmentList } from '../../utils/reducers';
 
 import { Card } from '@material-tailwind/react';
 
@@ -30,8 +26,6 @@ const ShipmentsList = () => {
   const dispatch = useAppDispatch();
 
   const shipments = useSelector(updatedShipmentList);
-  console.log('🚀 ~ ShipmentsList ~ shipments:', shipments);
-
   const loading = useSelector(selectLoading);
 
   useEffect(() => {
