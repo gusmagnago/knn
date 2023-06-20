@@ -33,7 +33,7 @@ const ShipmentsTable = ({ column, data }: ShipmentsTableProps) => {
       <table className='w-full min-w-max table-auto text-left'>
         <thead className='bg-[#f1f5f9]'>
           <ShipmentsTableRow
-            className='bg-[#e3f2fd] p-4 transition-colors hover:bg-[#bbdefb] cursor-pointer'
+            className='bg-[#e3f2fd] p-4 transition-colors'
             column={column}
             parent='thead'
           />

@@ -15,7 +15,7 @@ const ShipmentsTableRow = ({
   const isThead = parent === 'thead';
 
   return (
-    <tr className={`${parent} ${!isThead && 'border-b border-[#eeeeee]'}`}>
+    <tr className={`${!isThead && 'border-b border-[#eeeeee]'}`}>
       {column?.map((columnItem, index) => {
         const Cell = isThead ? 'th' : 'td';
         const columnValue =
@@ -44,7 +44,7 @@ const ShipmentsTableRow = ({
         return (
           <Fragment key={`${columnItem.name}-${index}-${columnValue}`}>
             {isThead ? (
-              <Cell>
+              <Cell className={className}>
                 <Typography
                   variant='small'
                   className='uppercase font-bold text-[#78909c]'
