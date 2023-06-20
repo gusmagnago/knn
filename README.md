@@ -53,8 +53,8 @@ Goal: The goal of this project is to demonstrate:
 - Redux-Thunk
 - Typescript
 - Axios
-- CSS template from [Creative-tim]([https://www.creative-tim.com/](https://www.creative-tim.com/product/material-tailwind-kit-react))
-- Styles with TailwindCSS [TailwindCSS](https://tailwindcss.com/)
+- CSS template from [Creative-tim]((https://www.creative-tim.com/product/material-tailwind-kit-react))
+- Styles with [TailwindCSS](https://tailwindcss.com/)
 
 #### Thank you!
 
