@@ -33,8 +33,34 @@ Open [localhost:3000](http://localhost:3000) to view it in the browser.
 The directory structure is the following:
 
 ```sh
-
-
+├── public
+├── src
+│   ├── components
+│   │   └──── error
+│   │   └──── layout
+│   │   └──── loader
+│   │   └──── shipment-card
+|   |   |   └──── ShipmentOverview.tsx
+|   |   └──── card-item
+|   |   |   └──── CardItem.tsx
+|   |   └──── shipments-list
+|   |   |   └──── components
+|   |   |   |     └──── action-button
+|   |   |   |     └──── pagination
+|   |   |   |     └──── table
+|   |   |   |     └──── table-row
+|   |   |   └──── index.types.ts
+|   |   |   └──── ShipmentsList.tsx
+│   ├── utils
+│   │   └──── api
+|   |   |      └──── fetchShipmentsData.ts
+|   |   |      └──── shipments.ts
+|   |   |      └──── updateShipmentData.ts
+│   │   └──── reducers
+│   │   └──── store
+│   │   └──── types.ts
+│   ├── App.tsx
+...
 ```
 
 ## General Information
