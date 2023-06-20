@@ -1,4 +1,4 @@
-import { useEffect, useState, MouseEvent } from 'react';
+import { useState, MouseEvent, FormEvent } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import {
   Card,
@@ -16,7 +16,6 @@ import { useSelector } from 'react-redux';
 import { column } from '../shipments-list/ShipmentsList';
 import CardItem from './card-item/CardItem';
 import Layout from '../layout/Layout';
-import { fetchShipmentsData } from '../../utils/api/fetchShipmentsData';
 import { updateShipmentData } from '../../utils/api/updateShipmentData';
 import ErrorPage from '../error/Error';
 import { AxiosError } from 'axios';
@@ -42,17 +41,13 @@ const ShipmentOverview = () => {
   const [customer, setCustomer] = useState(foundShipment?.customer);
   const filteredColumn = column.filter(({ heading }) => heading);
 
-  useEffect(() => {
-    dispatch(fetchShipmentsData());
-  }, [dispatch]);
-
-  const handleChangeValue = (name: string, e: any) => {
+  const handleChangeValue = (name: string, e: FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (name === 'consignee') {
-      setConsignee(e.target.value);
+      setConsignee(e.currentTarget.value);
     }
     if (name === 'customer') {
-      setCustomer(e.target.value);
+      setCustomer(e.currentTarget.value);
     }
     return;
   };

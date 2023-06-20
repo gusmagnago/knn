@@ -1,11 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../utils/store';
-import {
-  selectError,
-  selectLoading,
-  selectShipments,
-} from '../../utils/reducers';
+import { selectLoading, updatedShipmentList } from '../../utils/reducers';
 
 import { Card } from '@material-tailwind/react';
 
@@ -29,20 +25,23 @@ export const column = [
 const ShipmentsList = () => {
   const dispatch = useAppDispatch();
 
-  const shipments = useSelector(selectShipments);
+  const shipments = useSelector(updatedShipmentList);
   const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
 
   useEffect(() => {
-    dispatch(fetchShipmentsData());
+    const fetchData = async () => {
+      try {
+        await dispatch(fetchShipmentsData()).unwrap();
+      } catch (error) {
+        return <ErrorPage error={error as AxiosError} />;
+      }
+    };
+
+    fetchData();
   }, [dispatch]);
 
   if (loading) {
     return <Loader />;
-  }
-
-  if (error) {
-    return <ErrorPage error={error as AxiosError} />;
   }
 
   return (

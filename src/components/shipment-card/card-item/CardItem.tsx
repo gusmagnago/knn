@@ -1,11 +1,12 @@
 import { Input, Typography } from '@material-tailwind/react';
+import { FormEvent } from 'react';
 
 interface CardItemProps {
   label: string;
   value: string;
   isEdit: boolean;
   name: string;
-  onChange: (e: any) => void;
+  onChange: (e: FormEvent<HTMLInputElement>) => void;
 }
 
 const CardItem = ({ label, value, isEdit, onChange }: CardItemProps) => {

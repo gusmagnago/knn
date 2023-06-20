@@ -1,3 +1,4 @@
+
 import { AxiosError } from "axios";
 
 export enum ShipmentStatus {
@@ -17,6 +18,7 @@ export interface Shipments {
 
 export interface State {
     shipments: Shipments[];
+    updatedShipments: Shipments[];
     loading: boolean;
     error: null | string | undefined | void | AxiosError;
 }

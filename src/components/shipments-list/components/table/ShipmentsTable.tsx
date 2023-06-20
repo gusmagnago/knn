@@ -33,9 +33,9 @@ const ShipmentsTable = ({ column, data }: ShipmentsTableProps) => {
       <table className='w-full min-w-max table-auto text-left'>
         <thead className='bg-[#f1f5f9]'>
           <ShipmentsTableRow
+            className='bg-[#e3f2fd] p-4 transition-colors'
             column={column}
             parent='thead'
-            className='cursor-pointe bg-[#e3f2fd] p-4 transition-colors hover:bg-[#bbdefb] '
           />
         </thead>
         <tbody>
@@ -45,7 +45,7 @@ const ShipmentsTable = ({ column, data }: ShipmentsTableProps) => {
                 item={item}
                 column={column}
                 key={`${item.orderNo}-${item.trackingNo}`}
-                parent={'tbody'}
+                parent='tbody'
               />
             );
           })}

@@ -26,4 +26,5 @@ export interface PaginationProps {
 export interface ActionButtonProps {
     isDelete?: boolean;
     shipId: string | undefined;
+    onDelete?: (trackingId: string) => void;
 }

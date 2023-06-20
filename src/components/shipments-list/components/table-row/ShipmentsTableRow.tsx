@@ -1,8 +1,12 @@
+import { Fragment } from 'react';
 import { Typography } from '@material-tailwind/react';
 
 import { Shipments } from '../../../../utils/types';
-import ActionButton from '../action-button/ActionButton';
 import { ShipmentsTableRowProps } from '../index.types';
+
+import ActionButton from '../action-button/ActionButton';
+import { useAppDispatch } from '../../../../utils/store';
+import { deleteShipment } from '../../../../utils/reducers';
 
 const ShipmentsTableRow = ({
   item,
@@ -10,10 +14,12 @@ const ShipmentsTableRow = ({
   className,
   parent,
 }: ShipmentsTableRowProps) => {
+  const dispatch = useAppDispatch();
+
   const isThead = parent === 'thead';
 
   return (
-    <tr className={`${parent} ${!isThead && 'border-b border-[#eeeeee]'}`}>
+    <tr className={`${!isThead && 'border-b border-[#eeeeee]'}`}>
       {column?.map((columnItem, index) => {
         const Cell = isThead ? 'th' : 'td';
         const columnValue =
@@ -23,35 +29,45 @@ const ShipmentsTableRow = ({
         const isDelete = columnItem.name === 'delete';
 
         const renderCellChild = () => {
-          if (!isThead) {
-            if (isEdit) {
-              return <ActionButton shipId={item?.trackingNo} />;
-            }
-            if (isDelete) {
-              return <ActionButton isDelete shipId={item?.trackingNo} />;
-            }
+          if (isEdit) {
+            return <ActionButton shipId={item?.trackingNo} />;
+          }
+          if (isDelete) {
+            return (
+              <ActionButton
+                isDelete
+                shipId={item?.trackingNo}
+                onDelete={() => dispatch(deleteShipment(item?.trackingNo))}
+              />
+            );
           }
           return (
             <Typography
+              className='capitalize font-normal text-[#78909c]'
               variant='small'
-              className={
-                isThead
-                  ? ' uppercase font-bold text-[#78909c]'
-                  : 'capitalize font-normal text-[#78909c]'
-              }
             >
-              {isThead ? columnItem.heading : columnValue}
+              {columnValue}
             </Typography>
           );
         };
 
         return (
-          <Cell
-            key={`${columnItem.name}-${index}`}
-            className={isThead ? `${className}` : 'py-5 px-2 max-w-[250px]'}
-          >
-            {renderCellChild()}
-          </Cell>
+          <Fragment key={`${columnItem.name}-${index}-${columnValue}`}>
+            {isThead ? (
+              <Cell className={className}>
+                <Typography
+                  variant='small'
+                  className='uppercase font-bold text-[#78909c]'
+                >
+                  {columnItem.heading}
+                </Typography>
+              </Cell>
+            ) : (
+              <Cell className='py-5 px-2 max-w-[250px]'>
+                {renderCellChild()}
+              </Cell>
+            )}
+          </Fragment>
         );
       })}
     </tr>
